@@ -21,6 +21,7 @@
 Some of the features in this application
 - Login User [Reqres.In](https://reqres.in/)
 - Get List User
+- Dual Language (Bahasa and English)
 
 ## Library 
 Some of the libraries used in this application
