@@ -1,29 +1,50 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
+    id("androidx.navigation.safeargs")
 }
 
 android {
     namespace = "com.ryz.loginapp"
-    compileSdk = 34
+    compileSdk = (ConfigData.compileSdkVersion)
 
     defaultConfig {
-        applicationId = "com.ryz.loginapp"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = "com.ryz.mealrecipe"
+        minSdk = (ConfigData.minSdkVersion)
+        targetSdk = (ConfigData.targetSdkVersion)
+        versionCode = (ConfigData.versionCode)
+        versionName = (ConfigData.versionName)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            isDebuggable = true
+            isMinifyEnabled = false
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        flavorDimensions.add("api")
+
+        productFlavors {
+            create("dev") {
+                this.dimension = "api"
+                buildConfigField("String", "BASE_URL", "\"https://reqres.in/\"")
+            }
+            create("prod") {
+                this.dimension = "api"
+                buildConfigField("String", "BASE_URL", "\"https://reqres.in/\"")
+            }
         }
     }
     compileOptions {
@@ -33,15 +54,37 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+    }
 }
 
 dependencies {
-
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation(Dependencies.Deps.core)
+    implementation(Dependencies.Deps.appCompat)
     implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(Dependencies.Deps.constraintLayout)
+
+    // VIEW MODEL
+    implementation(Dependencies.Deps.lifecycleLiveData)
+    implementation(Dependencies.Deps.lifecycleViewModel)
+
+    // DAGGER HILT
+    implementation(Dependencies.Deps.hiltAndroid)
+    kapt(Dependencies.Deps.hiltCompiler)
+
+    // RETROFIT
+    implementation(Dependencies.Deps.okHttpLoggingInterceptor)
+    implementation(Dependencies.Deps.retrofitConverterGson)
+    implementation(Dependencies.Deps.retrofit)
+
+    // NAVIGATION GRAPH
+    implementation(Dependencies.Deps.navigationFragment)
+    implementation(Dependencies.Deps.navigationUi)
+
+    // TESTING
+    testImplementation(Dependencies.Deps.jUnit)
+    androidTestImplementation(Dependencies.Deps.jUnitTest)
+    androidTestImplementation(Dependencies.Deps.espresso)
 }
