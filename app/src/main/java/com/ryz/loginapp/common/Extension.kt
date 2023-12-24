@@ -1,15 +1,31 @@
 package com.ryz.loginapp.common
 
-import android.content.Context
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.coder.vincent.smart_snackbar.SNACK_BAR_ICON_POSITION_LEFT
+import com.coder.vincent.smart_snackbar.SmartSnackBar
+import com.ryz.loginapp.R
 
-fun Context.showMessage(message: String?) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+fun ImageView.loadRoundedImageUrl(image: String?) {
+    Glide.with(this).load(image).transform(CenterCrop(), RoundedCorners(20)).into(this)
 }
 
-fun Context.hideSoftInput(view: View) {
-    val im = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    im.hideSoftInputFromWindow(view.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
-}
+fun Any.snackBarErrorMessage(appCompatActivity: AppCompatActivity): Unit =
+    SmartSnackBar.top(appCompatActivity).config().icon(R.drawable.ic_info).iconSizeDp(24f)
+        .iconPosition(
+            SNACK_BAR_ICON_POSITION_LEFT
+        ).messageColorResource(R.color.white).backgroundColorResource(R.color.md_theme_light_error)
+        .apply()
+        .show(this.toString())
+
+fun Any.snackBarSuccessMessage(appCompatActivity: AppCompatActivity): Unit =
+    SmartSnackBar.top(appCompatActivity).config().icon(R.drawable.ic_info).iconSizeDp(24f)
+        .iconPosition(
+            SNACK_BAR_ICON_POSITION_LEFT
+        ).messageColorResource(R.color.white)
+        .backgroundColorResource(R.color.md_theme_light_primary)
+        .apply()
+        .show(this.toString())

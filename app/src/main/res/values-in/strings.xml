@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LoginApp</string>
+    <string name="name">%s %S</string>
+    <string name="title_greeting">Selamat Datang!</string>
+    <string name="title_info">Masuk untuk melanjutkan</string>
+    <string name="title_email">Email</string>
+    <string name="email_hint">Email ID</string>
+    <string name="title_password">Kata Sandi</string>
+    <string name="password_hint">Kata Sandi</string>
+    <string name="title_login">Masuk</string>
+    <string name="successful_login_message">Berhasil Masuk</string>
 </resources>

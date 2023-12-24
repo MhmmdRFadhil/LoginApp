@@ -28,4 +28,7 @@
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
     </style>
     <style name="Theme.LoginApp" parent="Base.Theme.LoginApp" />
+    <style name="BackgroundProgress">
+        <item name="android:background">#FFF</item>
+    </style>
 </resources>

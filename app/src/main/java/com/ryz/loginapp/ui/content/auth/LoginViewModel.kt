@@ -21,6 +21,12 @@ class LoginViewModel @Inject constructor(private val repository: LoginRepository
     private val _login = MutableLiveData<Resource<LoginResponse>>()
     val login: LiveData<Resource<LoginResponse>> = _login
 
+    fun getLoginToken() = repository.getLoginToken()
+
+    fun insertToken(token: String) = viewModelScope.launch {
+        repository.insertToken(token)
+    }
+
     fun login(loginEntity: LoginEntity) = viewModelScope.launch {
         repository.login(loginEntity).onStart {
             _login.postValue(Resource.Loading())

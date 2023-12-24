@@ -12,13 +12,26 @@ android {
     compileSdk = (ConfigData.compileSdkVersion)
 
     defaultConfig {
-        applicationId = "com.ryz.mealrecipe"
+        applicationId = "com.ryz.loginapp"
         minSdk = (ConfigData.minSdkVersion)
         targetSdk = (ConfigData.targetSdkVersion)
         versionCode = (ConfigData.versionCode)
         versionName = (ConfigData.versionName)
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += mapOf(
+                    "room.schemaLocation" to "$projectDir/schemas",
+                    "room.incremental" to "true",
+                    "room.expandProjection" to "true"
+                )
+            }
+        }
+
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
 
     buildTypes {
@@ -74,6 +87,11 @@ dependencies {
     implementation(Dependencies.Deps.hiltAndroid)
     kapt(Dependencies.Deps.hiltCompiler)
 
+    // ROOM
+    implementation(Dependencies.Deps.roomRuntime)
+    implementation(Dependencies.Deps.roomKtx)
+    ksp(Dependencies.Deps.roomCompiler)
+
     // RETROFIT
     implementation(Dependencies.Deps.okHttpLoggingInterceptor)
     implementation(Dependencies.Deps.retrofitConverterGson)
@@ -82,6 +100,21 @@ dependencies {
     // NAVIGATION GRAPH
     implementation(Dependencies.Deps.navigationFragment)
     implementation(Dependencies.Deps.navigationUi)
+
+    // PAGING
+    implementation(Dependencies.Deps.paging)
+
+    // GLIDE
+    implementation(Dependencies.Deps.glide)
+    ksp(Dependencies.Deps.glideCompiler)
+
+    // SMART SNACK BAR & TOAST
+    implementation(Dependencies.Deps.smartSnackBar)
+    implementation(Dependencies.Deps.smartToast)
+    kapt(Dependencies.Deps.smartToastCompiler)
+
+    // LOTTIE
+    implementation(Dependencies.Deps.lottie)
 
     // TESTING
     testImplementation(Dependencies.Deps.jUnit)

@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.ryz.loginapp.MainActivity
+import com.ryz.loginapp.R
 import com.ryz.loginapp.common.Resource
-import com.ryz.loginapp.common.showMessage
+import com.ryz.loginapp.common.snackBarErrorMessage
+import com.ryz.loginapp.common.snackBarSuccessMessage
 import com.ryz.loginapp.data.entity.LoginEntity
 import com.ryz.loginapp.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +38,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
         setupClickListener()
 
+        getToken()
         loginObserver()
     }
 
@@ -43,9 +49,30 @@ class LoginFragment : Fragment(), View.OnClickListener {
     private fun loginObserver() {
         loginViewModel.login.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Resource.Loading -> {}
-                is Resource.Success -> requireContext().showMessage("Berhasil login")
-                is Resource.Error -> requireContext().showMessage(result.message)
+                is Resource.Loading -> binding.loading.root.isVisible = true
+                is Resource.Success -> {
+                    binding.loading.root.isVisible = false
+                    getString(R.string.successful_login_message).snackBarSuccessMessage(activity as MainActivity)
+                    val token = result.data?.token
+                    loginViewModel.insertToken(token.toString())
+                }
+
+                is Resource.Error -> {
+                    binding.loading.root.isVisible = false
+                    result.message?.snackBarErrorMessage(activity as MainActivity)
+                }
+            }
+        }
+    }
+
+    private fun getToken() {
+        loginViewModel.getLoginToken().observe(viewLifecycleOwner) { result ->
+            if (result?.token != null) {
+                binding.loading.root.isVisible = true
+                val action = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
+                findNavController().navigate(action)
+            } else {
+                binding.loading.root.isVisible = false
             }
         }
     }

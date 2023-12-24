@@ -13,4 +13,11 @@ object Versions {
     const val okhttpLoggingVersion = "4.7.2"
     const val retrofitVersion = "2.9.0"
     const val navVersion = "2.7.6"
+    const val roomVersion = "2.6.1"
+    const val pagingVersion = "3.0.1"
+    const val glideVersion = "4.16.0"
+    const val smartSnackBarVersion = "4.0.7"
+    const val smartToastVersion = "4.0.6"
+    const val smartToastCompiler = "1.0.3"
+    const val lottieVersion = "6.2.0"
 }

@@ -21,6 +21,11 @@ object Dependencies {
         val hiltAndroid by lazy { "com.google.dagger:hilt-android:${Versions.daggerVersion}" }
         val hiltCompiler by lazy { "com.google.dagger:hilt-compiler:${Versions.daggerVersion}" }
 
+        // ROOM
+        val roomRuntime by lazy { "androidx.room:room-runtime:${Versions.roomVersion}" }
+        val roomCompiler by lazy { "androidx.room:room-compiler:${Versions.roomVersion}" }
+        val roomKtx by lazy { "androidx.room:room-ktx:${Versions.roomVersion}" }
+
         // RETROFIT
         val retrofit by lazy { "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}" }
         val retrofitConverterGson by lazy { "com.squareup.retrofit2:converter-gson:${Versions.retrofitVersion}" }
@@ -31,5 +36,22 @@ object Dependencies {
         //NAVIGATION
         val navigationFragment by lazy { "androidx.navigation:navigation-fragment-ktx:${Versions.navVersion}" }
         val navigationUi by lazy { "androidx.navigation:navigation-ui-ktx:${Versions.navVersion}" }
+
+        // PAGING
+        val paging by lazy { "androidx.paging:paging-runtime-ktx:${Versions.pagingVersion}" }
+
+        // GLIDE
+        val glide by lazy { "com.github.bumptech.glide:glide:${Versions.glideVersion}" }
+        val glideCompiler by lazy { "com.github.bumptech.glide:compiler:${Versions.glideVersion}" }
+
+        // SMART SNACK BAR
+        val smartSnackBar by lazy { "io.github.vincent-series:smart-snackbar:${Versions.smartSnackBarVersion}" }
+
+        // SMART TOAST
+        val smartToast by lazy { "io.github.vincent-series:smart-toast:${Versions.smartToastVersion}" }
+        val smartToastCompiler by lazy { "io.github.vincent-series:annotation-compiler:${Versions.smartToastCompiler}" }
+
+        // LOTTIE
+        val lottie by lazy { "com.airbnb.android:lottie:${Versions.lottieVersion}" }
     }
 }
